@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltLane | Wireless Charging Roads for Electric Vehicles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A4D3C;
+            --electric-green: #00FF87;
+            --electric-blue: #00E5FF;
+            --dark-bg: #0D1B16;
+            --light-bg: #F8FAFB;
+            --text-dark: #1A1A1A;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+            --energy-gradient: linear-gradient(135deg, #00FF87 0%, #00E5FF 100%);
+            --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            background: var(--light-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 250, 251, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-accent {
+            width: 8px;
+            height: 8px;
+            background: var(--energy-gradient);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        .nav-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.1), rgba(0, 229, 255, 0.1));
+            border: 1px solid rgba(0, 255, 135, 0.3);
+            border-radius: 20px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--light-bg) 0%, #E8F4F0 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 255, 135, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 255, 135, 0.2);
+            border-radius: 30px;
+        }
+
+        .tag-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--electric-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .concept-illustration {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Road visualization */
+        .road-lane {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 400px;
+            background: linear-gradient(to bottom, rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.8) 100%);
+            border-left: 2px dashed rgba(255, 255, 255, 0.3);
+            border-right: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        .charging-coil {
+            position: absolute;
+            width: 120px;
+            height: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--energy-gradient);
+            border-radius: 10px;
+            opacity: 0.6;
+            animation: coilPulse 2s ease-in-out infinite;
+        }
+
+        .coil-1 { bottom: 80px; animation-delay: 0s; }
+        .coil-2 { bottom: 140px; animation-delay: 0.3s; }
+        .coil-3 { bottom: 200px; animation-delay: 0.6s; }
+
+        @keyframes coilPulse {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .ev-vehicle {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, #0A5D4C 100%);
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: 0 8px 32px rgba(10, 77, 60, 0.3);
+        }
+
+        .ev-vehicle::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 30%;
+            width: 40%;
+            height: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, #0A5D4C 100%);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .energy-flow {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40px;
+            background: var(--energy-gradient);
+            animation: energyFlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes energyFlow {
+            0% { height: 0; opacity: 0; }
+            50% { opacity: 1; }
+            100% { height: 40px; opacity: 0; }
+        }
+
+        .energy-arrow {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--electric-green);
+            font-size: 1.5rem;
+            animation: arrowBounce 1.5s ease-in-out infinite;
+        }
+
+        .arrow-1 { bottom: 50px; animation-delay: 0s; }
+        .arrow-2 { bottom: 120px; animation-delay: 0.3s; }
+
+        @keyframes arrowBounce {
+            0%, 100% { opacity: 0; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: white;
+            border-radius: 32px;
+            padding: 4rem;
+            margin: 0 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            padding: 2rem;
+            border-radius: 16px;
+            background: var(--light-bg);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border-color: var(--electric-green);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--energy-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .problem-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .problem-text {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .comparison-visual {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.05), rgba(0, 229, 255, 0.05));
+            border-radius: 16px;
+            border: 1px dashed rgba(0, 255, 135, 0.3);
+        }
+
+        .comparison-item {
+            text-align: center;
+        }
+
+        .comparison-box {
+            height: 200px;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .gas-station {
+            background: linear-gradient(135deg, #FFE5E5, #FFF0E5);
+            border: 2px solid #FF6B6B;
+        }
+
+        .ev-waiting {
+            background: linear-gradient(135deg, #E5F4FF, #E5FFEF);
+            border: 2px solid var(--electric-blue);
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-time {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            background: var(--dark-bg);
+            color: white;
+            border-radius: 0;
+            margin: 4rem 0 0 0;
+            padding: 6rem 2rem;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .solution-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--electric-green);
+        }
+
+        .solution-points {
+            list-style: none;
+        }
+
+        .solution-points li {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .solution-points li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--energy-gradient);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-bg);
+            margin-top: 0.25rem;
+        }
+
+        .solution-schematic {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schematic-car {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.2), rgba(0, 229, 255, 0.2));
+            border: 2px solid var(--electric-green);
+            border-radius: 8px;
+        }
+
+        .schematic-receiver {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 10px;
+            background: var(--electric-blue);
+            border-radius: 2px;
+        }
+
+        .schematic-coils {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--electric-green) 25%, 
+                var(--electric-blue) 50%, 
+                var(--electric-green) 75%, 
+                transparent 100%);
+            opacity: 0.4;
+            border-radius: 20px;
+        }
+
+        .energy-wave {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 60px;
+            border: 2px solid var(--electric-green);
+            border-radius: 50% 50% 0 0;
+            border-bottom: none;
+            opacity: 0.6;
+            animation: waveExpand 2s ease-in-out infinite;
+        }
+
+        @keyframes waveExpand {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+            50% { transform: translateX(-50%) scale(1.2); opacity: 0.3; }
+        }
+
+        .schematic-label {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--electric-green);
+        }
+
+        .label-receiver { top: 15%; right: 10%; }
+        .label-magnetic { bottom: 35%; left: 5%; }
+        .label-coils { bottom: 25%; right: 5%; }
+
+        /* Value Proposition */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--energy-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--energy-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .value-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Technology Section */
+        .tech-section {
+            background: linear-gradient(135deg, #F0FDF4 0%, #E0F2FE 100%);
+            padding: 6rem 2rem;
+            border-radius: 32px;
+            margin: 0 2rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+        }
+
+        .tech-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--energy-gradient);
+            color: var(--dark-bg);
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tech-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .tech-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--electric-green);
+            font-weight: bold;
+        }
+
+        .poc-visual {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poc-visual::before {
+            content: 'Receiver Module';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .receiver-diagram {
+            width: 80%;
+            height: 60%;
+            background: linear-gradient(135deg, rgba(10, 77, 60, 0.1), rgba(0, 229, 255, 0.1));
+            border: 3px solid var(--primary);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .receiver-coil {
+            width: 60%;
+            height: 40%;
+            border: 3px solid var(--electric-green);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .receiver-coil::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30%;
+            height: 30%;
+            background: var(--energy-gradient);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Vision Section */
+        .vision-section {
+            background: var(--dark-bg);
+            color: white;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 255, 135, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .vision-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .vision-content h2 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .vision-statement {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .vision-highlight {
+            color: var(--electric-green);
+            font-weight: 600;
+        }
+
+        .future-highway {
+            margin-top: 4rem;
+            height: 400px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highway-lanes {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.4) 100%);
+        }
+
+        .lane {
+            position: absolute;
+            bottom: 0;
+            width: 25%;
+            height: 100%;
+            border-left: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .lane:nth-child(2) { left: 25%; }
+        .lane:nth-child(3) { left: 50%; }
+        .lane:nth-child(4) { left: 75%; }
+
+        .highway-car {
+            position: absolute;
+            width: 60px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--electric-green), var(--electric-blue));
+            border-radius: 4px;
+            animation: driveAlong 8s linear infinite;
+        }
+
+        .car-1 { bottom: 20%; left: 10%; animation-delay: 0s; }
+        .car-2 { bottom: 30%; left: 35%; animation-delay: 2s; }
+        .car-3 { bottom: 25%; left: 60%; animation-delay: 4s; }
+
+        @keyframes driveAlong {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-400px); opacity: 0; }
+        }
+
+        .charging-indicator {
+            position: absolute;
+            width: 120px;
+            height: 3px;
+            background: var(--energy-gradient);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: chargingGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes chargingGlow {
+            0%, 100% { opacity: 0.3; box-shadow: 0 0 10px var(--electric-green); }
+            50% { opacity: 1; box-shadow: 0 0 30px var(--electric-green); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--electric-green);
+            margin-bottom: 2rem;
+        }
+
+        .footer-note {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+            .hero-container { grid-template-columns: 1fr; gap: 3rem; }
+            .problem-grid { grid-template-columns: 1fr; }
+            .solution-grid { grid-template-columns: 1fr; }
+            .value-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .hero-subtitle { font-size: 1.25rem; }
+            .section-description { font-size: 1.125rem; }
+            .comparison-visual { grid-template-columns: 1fr; }
+            .nav-container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-accent"></div>
+                VoltLane
+            </div>
+            <div class="nav-tag">PROOF-OF-CONCEPT</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <div class="tag-dot"></div>
+                    Transportation • Hard Tech • EV Infrastructure
+                </div>
+                <h1>On-the-Go EV Charging</h1>
+                <p class="hero-subtitle">Transform highways into continuous energy networks, enabling EVs to drive further, faster, and sustainably.</p>
+            </div>
+            <div class="hero-visual">
+                <div class="concept-illustration">
+                    <div class="road-lane">
+                        <div class="charging-coil coil-1"></div>
+                        <div class="charging-coil coil-2"></div>
+                        <div class="charging-coil coil-3"></div>
+                    </div>
+                    <div class="ev-vehicle">
+                        <div class="energy-flow"></div>
+                    </div>
+                    <div class="energy-arrow arrow-1">↑</div>
+                    <div class="energy-arrow arrow-2">↑</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section>
+        <div class="problem-section">
+            <div class="section-header">
+                <div class="section-tag">The Challenge</div>
+                <h2>The EV Adoption Barrier</h2>
+                <p class="section-description">Current electric vehicle infrastructure creates friction that slows widespread adoption and limits the full potential of sustainable transportation.</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⚡</div>
+                    <h3 class="problem-title">Charging Gaps & Downtime</h3>
+                    <p class="problem-text">Electric vehicles require frequent charging stops, causing significant downtime and limiting long-distance travel. This creates persistent range anxiety for drivers and reduces the practical utility of EVs.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🔌</div>
+                    <h3 class="problem-title">Infrastructure Constraints</h3>
+                    <p class="problem-text">Charging infrastructure remains sparse and expensive to deploy compared to traditional gas stations. This creates geographic limitations and forces EVs to compete on an uneven playing field.</p>
+                </div>
+            </div>
+
+            <div class="comparison-visual">
+                <div class="comparison-item">
+                    <div class="comparison-box gas-station">⛽</div>
+                    <div class="comparison-label">Petrol Vehicle</div>
+                    <div class="comparison-time">~5 minutes refueling</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-box ev-waiting">🔋</div>
+                    <div class="comparison-label">Electric Vehicle (Current)</div>
+                    <div class="comparison-time">30-60 minutes charging</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="section-header">
+                <div class="section-tag" style="color: var(--electric-green);">Our Innovation</div>
+                <h2 style="color: white;">Dynamic Wireless Charging Infrastructure</h2>
+                <p class="section-description" style="color: rgba(255, 255, 255, 0.7);">VoltLane embeds inductive charging technology directly into highway lanes, enabling continuous energy transfer to vehicles in motion.</p>
+            </div>
+
+            <div class="solution-grid">
+                <div class="solution-content">
+                    <h3>How It Works</h3>
+                    <ul class="solution-points">
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <div>
+                                <strong>Embedded Inductive Coils:</strong> Highway lanes are equipped with wireless charging coils integrated beneath the road surface, creating a continuous energy transfer zone.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <div>
+                                <strong>Vehicle-Side Receivers:</strong> EVs are equipped with underbody receiver modules that convert magnetic fields from road coils into electrical energy for the battery.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check-icon">✓</div>
+                            <div>
+                                <strong>Continuous Energy Transfer:</strong> No plugs, no stops—energy flows from road to vehicle automatically while driving, eliminating traditional charging downtime.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="solution-schematic">
+                    <!-- Vehicle with receiver -->
+                    <div style="position: absolute; top: 15%; left: 50%; transform: translateX(-50%); width: 200px; height: 80px; background: linear-gradient(135deg, rgba(0, 255, 135, 0.2), rgba(0, 229, 255, 0.2)); border: 2px solid var(--electric-green); border-radius: 8px;">
+                        <!-- Vehicle cabin -->
+                        <div style="position: absolute; top: -20px; left: 25%; width: 50%; height: 20px; background: linear-gradient(135deg, rgba(0, 255, 135, 0.2), rgba(0, 229, 255, 0.2)); border: 2px solid var(--electric-green); border-radius: 6px 6px 0 0; border-bottom: none;"></div>
+                        <!-- Underbody receiver -->
+                        <div style="position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); width: 100px; height: 8px; background: linear-gradient(90deg, var(--electric-blue), var(--electric-green), var(--electric-blue)); border-radius: 4px; border: 2px solid var(--electric-green); box-shadow: 0 0 15px rgba(0, 255, 135, 0.5);"></div>
+                    </div>
+                    
+                    <!-- Magnetic field lines connecting receiver to coils -->
+                    <div style="position: absolute; top: 40%; left: 50%; transform: translateX(-50%); width: 180px; height: 80px;">
+                        <!-- Field line 1 -->
+                        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 40px; border: 2px solid var(--electric-green); border-radius: 50% 50% 0 0; border-bottom: none; opacity: 0.5; animation: waveExpand 2s ease-in-out infinite;"></div>
+                        <!-- Field line 2 -->
+                        <div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 130px; height: 50px; border: 2px solid var(--electric-blue); border-radius: 50% 50% 0 0; border-bottom: none; opacity: 0.4; animation: waveExpand 2s ease-in-out infinite 0.3s;"></div>
+                        <!-- Field line 3 -->
+                        <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 160px; height: 60px; border: 2px solid var(--electric-green); border-radius: 50% 50% 0 0; border-bottom: none; opacity: 0.3; animation: waveExpand 2s ease-in-out infinite 0.6s;"></div>
+                        
+                        <!-- Energy particles -->
+                        <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--electric-green); border-radius: 50%; animation: particleRise 1.5s ease-in-out infinite;"></div>
+                        <div style="position: absolute; top: 25px; left: 45%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--electric-blue); border-radius: 50%; animation: particleRise 1.5s ease-in-out infinite 0.5s;"></div>
+                        <div style="position: absolute; top: 25px; left: 55%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--electric-green); border-radius: 50%; animation: particleRise 1.5s ease-in-out infinite 0.8s;"></div>
+                    </div>
+                    
+                    <style>
+                        @keyframes particleRise {
+                            0% { opacity: 0; transform: translateY(30px) scale(0); }
+                            50% { opacity: 1; }
+                            100% { opacity: 0; transform: translateY(-30px) scale(1); }
+                        }
+                    </style>
+                    
+                    <!-- Road-embedded coils -->
+                    <div style="position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); width: 200px; height: 40px; background: linear-gradient(90deg, transparent 0%, var(--electric-green) 25%, var(--electric-blue) 50%, var(--electric-green) 75%, transparent 100%); opacity: 0.4; border-radius: 20px;"></div>
+                    
+                    <!-- Individual coil representations -->
+                    <div style="position: absolute; bottom: 20%; left: 30%; width: 40px; height: 40px; border: 2px solid var(--electric-blue); border-radius: 50%; opacity: 0.6;"></div>
+                    <div style="position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); width: 40px; height: 40px; border: 2px solid var(--electric-green); border-radius: 50%; opacity: 0.6; box-shadow: 0 0 10px rgba(0, 255, 135, 0.4);"></div>
+                    <div style="position: absolute; bottom: 20%; right: 30%; width: 40px; height: 40px; border: 2px solid var(--electric-blue); border-radius: 50%; opacity: 0.6;"></div>
+                    
+                    <!-- Labels -->
+                    <span class="schematic-label label-receiver">Receiver Module</span>
+                    <span class="schematic-label label-magnetic">Magnetic Field</span>
+                    <span class="schematic-label label-coils">Road Coils</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Section -->
+    <section>
+        <div class="section-header">
+            <div class="section-tag">Impact</div>
+            <h2>Transformative Benefits</h2>
+            <p class="section-description">VoltLane's technology creates a paradigm shift in how we think about electric vehicle infrastructure and sustainable mobility.</p>
+        </div>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-number">01</div>
+                <h3 class="value-title">Sustainable Energy Integration</h3>
+                <p class="value-description">Charging lanes can be powered by renewable sources including solar panels integrated along highways, creating a truly sustainable transportation ecosystem.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">02</div>
+                <h3 class="value-title">Seamless Mobility</h3>
+                <p class="value-description">Enable truly uninterrupted long-distance travel. Drivers can focus on their journey without planning stops around charging stations, making EVs as convenient as traditional vehicles.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">03</div>
+                <h3 class="value-title">Smaller, Lighter Batteries</h3>
+                <p class="value-description">Continuous charging reduces the need for massive battery packs, significantly lowering vehicle cost, weight, and manufacturing complexity while improving efficiency.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-number">04</div>
+                <h3 class="value-title">Scalable Adoption Path</h3>
+                <p class="value-description">Start with major highways and expand to urban environments. As the network grows, EV adoption accelerates through improved infrastructure confidence and coverage.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology/POC Section -->
+    <section>
+        <div class="tech-section">
+            <div class="section-header">
+                <div class="section-tag">Current Progress</div>
+                <h2>Proof-of-Concept Validation</h2>
+                <p class="section-description">We've successfully demonstrated the core technology and are advancing toward real-world deployment.</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-badge">Current Stage</div>
+                    <h3 class="tech-title">Proof-of-Concept Complete</h3>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        We have built a proof of concept for the vehicle-side wireless charging system. This included designing and testing the underbody receiver, validating inductive coil coupling, and successfully demonstrating energy transfer to a vehicle-mounted receiver.
+                    </p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-badge" style="background: linear-gradient(135deg, #FFE5E5, #FFF0E5); color: #FF6B6B;">Next Steps</div>
+                    <h3 class="tech-title">Research & Development</h3>
+                    <p style="color: var(--text-light); line-height: 1.7;">
+                        We plan to study how vehicle speed affects charging efficiency and refine the receiver system. Future work will explore integration with road-based coils as the project progresses toward on-the-go charging infrastructure.
+                    </p>
+                </div>
+            </div>
+
+            <div class="poc-visual">
+                <!-- Vehicle chassis -->
+                <div style="position: absolute; top: 15%; left: 50%; transform: translateX(-50%); width: 280px; height: 100px; background: linear-gradient(135deg, #0A4D3C 0%, #0A5D4C 100%); border-radius: 12px 12px 4px 4px; box-shadow: 0 8px 24px rgba(10, 77, 60, 0.4);">
+                    <!-- Vehicle cabin -->
+                    <div style="position: absolute; top: -25px; left: 25%; width: 50%; height: 25px; background: linear-gradient(135deg, #0A4D3C 0%, #0A5D4C 100%); border-radius: 8px 8px 0 0;"></div>
+                    <!-- Wheels -->
+                    <div style="position: absolute; bottom: -12px; left: 20px; width: 30px; height: 30px; background: #1A1A1A; border-radius: 50%; border: 3px solid #4A4A4A;"></div>
+                    <div style="position: absolute; bottom: -12px; right: 20px; width: 30px; height: 30px; background: #1A1A1A; border-radius: 50%; border: 3px solid #4A4A4A;"></div>
+                    
+                    <!-- Underbody receiver module -->
+                    <div style="position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 140px; height: 12px; background: linear-gradient(90deg, var(--electric-blue), var(--electric-green), var(--electric-blue)); border-radius: 6px; border: 2px solid var(--electric-green); box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);"></div>
+                    
+                    <!-- Receiver label -->
+                    <div style="position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--electric-green); white-space: nowrap;">Underbody Receiver</div>
+                </div>
+                
+                <!-- Magnetic field lines -->
+                <div style="position: absolute; top: 45%; left: 50%; transform: translateX(-50%); width: 200px; height: 80px;">
+                    <!-- Field line 1 -->
+                    <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 40px; border: 2px solid var(--electric-green); border-radius: 50% 50% 0 0; border-bottom: none; opacity: 0.4; animation: fieldPulse 2s ease-in-out infinite;"></div>
+                    <!-- Field line 2 -->
+                    <div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 160px; height: 50px; border: 2px solid var(--electric-blue); border-radius: 50% 50% 0 0; border-bottom: none; opacity: 0.3; animation: fieldPulse 2s ease-in-out infinite 0.3s;"></div>
+                    <!-- Field line 3 -->
+                    <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 200px; height: 60px; border: 2px solid var(--electric-green); border-radius: 50% 50% 0 0; border-bottom: none; opacity: 0.2; animation: fieldPulse 2s ease-in-out infinite 0.6s;"></div>
+                    
+                    <!-- Energy particles -->
+                    <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--electric-green); border-radius: 50%; animation: particleRise 1.5s ease-in-out infinite;"></div>
+                    <div style="position: absolute; top: 25px; left: 45%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--electric-blue); border-radius: 50%; animation: particleRise 1.5s ease-in-out infinite 0.5s;"></div>
+                    <div style="position: absolute; top: 25px; left: 55%; transform: translateX(-50%); width: 6px; height: 6px; background: var(--electric-green); border-radius: 50%; animation: particleRise 1.5s ease-in-out infinite 0.8s;"></div>
+                </div>
+                
+                <style>
+                    @keyframes fieldPulse {
+                        0%, 100% { opacity: 0.2; transform: translateX(-50%) scale(1); }
+                        50% { opacity: 0.6; transform: translateX(-50%) scale(1.05); }
+                    }
+                    
+                    @keyframes particleRise {
+                        0% { opacity: 0; transform: translateY(30px) scale(0); }
+                        50% { opacity: 1; }
+                        100% { opacity: 0; transform: translateY(-20px) scale(1); }
+                    }
+                </style>
+                
+                <!-- Magnetic field label -->
+                <div style="position: absolute; top: 50%; left: 10%; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--electric-green);">Magnetic Field</div>
+                
+                <!-- Road surface with embedded coils -->
+                <div style="position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); width: 300px; height: 60px; background: linear-gradient(180deg, rgba(26, 26, 26, 0.3) 0%, rgba(26, 26, 26, 0.6) 100%); border-radius: 8px;">
+                    <!-- Coil 1 -->
+                    <div style="position: absolute; top: 15px; left: 20%; width: 60px; height: 30px; border: 3px solid var(--electric-blue); border-radius: 50%; opacity: 0.7;"></div>
+                    <!-- Coil 2 -->
+                    <div style="position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 60px; height: 30px; border: 3px solid var(--electric-green); border-radius: 50%; opacity: 0.7; box-shadow: 0 0 15px rgba(0, 255, 135, 0.4);"></div>
+                    <!-- Coil 3 -->
+                    <div style="position: absolute; top: 15px; right: 20%; width: 60px; height: 30px; border: 3px solid var(--electric-blue); border-radius: 50%; opacity: 0.7;"></div>
+                </div>
+                
+                <!-- Road coils label -->
+                <div style="position: absolute; bottom: 15%; right: 10%; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--electric-blue);">Road-Embedded Coils</div>
+                
+                <!-- Energy transfer arrows -->
+                <div style="position: absolute; top: 38%; left: 50%; transform: translateX(-50%); font-size: 1.2rem; color: var(--electric-green); animation: arrowBounce 1.5s ease-in-out infinite;">↑</div>
+                <div style="position: absolute; top: 42%; left: 45%; transform: translateX(-50%); font-size: 1.2rem; color: var(--electric-blue); animation: arrowBounce 1.5s ease-in-out infinite 0.3s;">↑</div>
+                <div style="position: absolute; top: 42%; left: 55%; transform: translateX(-50%); font-size: 1.2rem; color: var(--electric-green); animation: arrowBounce 1.5s ease-in-out infinite 0.6s;">↑</div>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-light); font-size: 0.875rem;">
+                <em>Vehicle with underbody receiver positioned above road-embedded coils, showing magnetic energy transfer</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="vision-content">
+            <div class="section-tag" style="color: var(--electric-green);">Our Mission</div>
+            <h2>Pioneering the Future of Mobility</h2>
+            <p class="vision-statement">
+                VoltLane is <span class="vision-highlight">pioneering wireless on-the-go EV charging</span> to eliminate the fundamental barrier to electric vehicle adoption. We're building the infrastructure that will <span class="vision-highlight">transform roads into continuous, clean energy networks</span>—making sustainable transportation not just possible, but effortless.
+            </p>
+            <p class="vision-statement">
+                Our vision is a world where highways power the vehicles that drive on them, where electric mobility is limited only by where the road leads, and where clean energy infrastructure becomes as fundamental as the pavement itself.
+            </p>
+
+            <div class="future-highway">
+                <div class="highway-lanes">
+                    <div class="lane"></div>
+                    <div class="lane"></div>
+                    <div class="lane"></div>
+                    <div class="lane"></div>
+                </div>
+                <div class="highway-car car-1"></div>
+                <div class="highway-car car-2"></div>
+                <div class="highway-car car-3"></div>
+                <div class="highway-car" style="bottom: 28%; left: 85%; animation-delay: 6s;"></div>
+                <div class="charging-indicator" style="left: 15%; bottom: 20%;"></div>
+                <div class="charging-indicator" style="left: 40%; bottom: 30%;"></div>
+                <div class="charging-indicator" style="left: 65%; bottom: 25%;"></div>
+                <div class="charging-indicator" style="left: 88%; bottom: 28%;"></div>
+            </div>
+            <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.5); font-size: 0.875rem;">
+                <em>Vision: Multiple EVs charging simultaneously on future wireless highway infrastructure</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">VoltLane</div>
+            <div class="footer-tagline">Wireless Charging Roads • Hard Tech • Proof-of-Concept</div>
+            <p style="margin-top: 2rem; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4);">
+                © 2026 VoltLane. Transforming highways into energy networks.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
